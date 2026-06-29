@@ -211,7 +211,6 @@
 
                     <div id="product-grid"
                         class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-5 gap-6">
-                        {{-- PENANDA BAB IV - WPO: kartu katalog memakai thumbnail terukur dan lazy loading. --}}
                         @foreach ($products as $product)
                             <a href="{{ url('/detail-product/' . $product->sku) }}"
                                 class="bg-white rounded-lg w-full h-[300px] shadow-md overflow-hidden">

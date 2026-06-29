@@ -28,7 +28,6 @@ class MvcProdutch extends Controller
         $priceTo = $request->query('price_to');
         $searchQuery = $request->query('query');
 
-        // PENANDA BAB IV - WPO: seleksi kolom/pagination/cache untuk halaman Katalog dan Detail Produk.
         $query = Product::query()
             ->select(['id','image','product_name','sku','price','stock','status','category_id'])
             ->with(['category:id,slug,category_name']);

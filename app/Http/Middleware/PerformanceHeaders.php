@@ -11,7 +11,6 @@ class PerformanceHeaders
      * Add lightweight caching headers for local/dev server and edge cases.
      * (In production, prefer web-server level caching for static assets.)
      */
-    // PENANDA BAB IV - WPO: header cache respons untuk resource statis/dinamis.
     public function handle(Request $request, Closure $next): Response
     {
         /** @var \Symfony\Component\HttpFoundation\Response $response */

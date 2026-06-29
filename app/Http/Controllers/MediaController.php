@@ -12,7 +12,6 @@ class MediaController extends Controller
      * Generate & serve a cached thumbnail (WebP) for images stored on the public disk.
      * Example: /media/thumb/480/products/abc.jpg
      */
-    // PENANDA BAB IV - WPO: endpoint thumbnail WebP ter-cache.
     public function thumb(Request $request, int $width, string $path)
     {
         $width = max(64, min(2000, $width));

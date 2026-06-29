@@ -62,7 +62,6 @@
 
 <body class="bg-white font-Montserrat">
 
-    {{-- PENANDA BAB IV - WPO: pemuatan script pihak ketiga ditunda dan gambar non-prioritas dilazy-load. --}}
     <script>
         (() => {
             document.addEventListener('DOMContentLoaded', () => {
@@ -97,7 +96,7 @@
     {{-- Navbar --}}
     <x-navbar></x-navbar>
 
-    {{-- PENANDA BAB IV - WPO: hero WebP diberi preload, ukuran tetap, fetchpriority tinggi, dan aspect-ratio. --}}
+    {{-- hero WebP diberi preload, ukuran tetap, fetchpriority tinggi, dan aspect-ratio. --}}
     {{-- Hero Section --}}
     <section
         class="hero-shell mt-8 bg-smoothcream max-w-[1280px] mx-auto w-full relative overflow-hidden lg:rounded-[10px] xl:rounded-[10px] 2xl:rounded-[10px]">

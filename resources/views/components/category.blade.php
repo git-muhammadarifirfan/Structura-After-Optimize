@@ -4,7 +4,6 @@
 
     <!-- MOBILE & TABLET: Horizontal Scroll -->
     <div class="flex lg:hidden gap-3 pb-4 overflow-x-auto pl-4 scrollbar-hide">
-        {{-- PENANDA BAB IV - WPO: thumbnail kategori menggunakan lazy loading dan dimensi eksplisit. --}}
         @foreach ($categories as $category)
             <a href="{{ route('byCategory', $category->slug) }}"
                 class="flex-shrink-0 w-[80px] flex flex-col items-center text-center space-y-2">

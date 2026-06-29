@@ -16,7 +16,6 @@ class LandingPageController extends Controller
             return redirect('/structuradmin');
         }
 
-        // PENANDA BAB IV - WPO: caching query konten landing page untuk menekan beban request berulang.
         $latestProducts = Cache::remember('landing.latest_products', 300, function () {
             return Product::select(['id','image','product_name','sku','price','stock','category_id'])
                 ->orderByDesc('id')

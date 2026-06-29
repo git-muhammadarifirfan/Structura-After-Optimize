@@ -78,7 +78,6 @@
         <div class="w-full max-w-4xl mx-auto mt-16 lg:mt-2">
             <!-- DEKSTOP & LAPTOP VIEW -->
             <div class="hidden md:flex flex-col md:flex-row items-start gap-8 mt-10">
-                {{-- PENANDA BAB IV - WPO: gambar detail memakai thumbnail WebP ter-cache dan decoding async. --}}
                 {{-- product image --}}
                 <div class="w-full md:w-[40%] max-w-sm mx-auto">
                     <div class="bg-white rounded-xl overflow-hidden shadow-lg w-full h-[500px]">

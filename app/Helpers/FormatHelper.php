@@ -18,7 +18,7 @@ if (!function_exists('formatPhoneNumber')) {
 }
 
 
-// PENANDA BAB IV - WPO: pemilihan thumbnail WebP statis/dinamis untuk aset gambar.
+
 if (!function_exists('thumb_url')) {
     /**
      * Build a thumbnail URL for an image stored in the public disk.
