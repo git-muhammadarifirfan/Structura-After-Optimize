@@ -1,0 +1,96 @@
+# DOKUMENTASI KODE APLIKASI - VERSI SESUDAH OPTIMASI
+# Penanda kondisi penelitian: hasil implementasi Web Performance Optimization sesuai Bab IV.
+# Catatan: komentar dokumentasi ini tidak mengubah perilaku konfigurasi.
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# PENANDA BAB IV - WPO: implementasi cache-control dan kompresi aset statis.
+# -------------------------------------------------------------------------
+# Performance: Compression (Gzip/Brotli) + Cache Headers (Expires/Cache-Control)
+# Based on NFR testing recommendations (Pingdom): enable compression + add cache headers.
+# -------------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+    Header append Vary Accept-Encoding
+</IfModule>
+
+# --- Brotli (if available) ---
+<IfModule mod_brotli.c>
+    BrotliCompressionQuality 5
+    AddOutputFilterByType BROTLI_COMPRESS text/plain text/html text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# --- Gzip/Deflate (fallback) ---
+<IfModule mod_deflate.c>
+    # Compress text, html, javascript, css, xml, json, svg
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml image/svg+xml
+
+    # Some proxies have issues with compression
+    <IfModule mod_headers.c>
+        Header append Vary User-Agent
+    </IfModule>
+</IfModule>
+
+# --- Browser caching (Expires + Cache-Control) ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Default
+    ExpiresDefault "access plus 1 day"
+
+    # HTML - revalidate quickly
+    ExpiresByType text/html "access plus 0 seconds"
+
+    # CSS/JS
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType text/javascript "access plus 30 days"
+
+    # Images
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Fonts
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Immutable static assets (cache long)
+    <FilesMatch "\.(css|js|mjs|map|jpg|jpeg|png|gif|svg|webp|ico|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # HTML should not be cached aggressively by browsers unless you add server-side cache
+    <FilesMatch "\.(html)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+</IfModule>
